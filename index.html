@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Android System Critical Error</title>
+    <style>
+        body {
+            background-color: black;
+            color: #ff3333;
+            font-family: Arial, sans-serif;
+            padding: 30px 20px;
+            text-align: center;
+            user-select: none;
+        }
+        .box {
+            border: 2px solid red;
+            padding: 20px;
+            background-color: #1a0000;
+            border-radius: 10px;
+            box-shadow: 0 0 20px rgba(255, 0, 0, 0.5);
+        }
+        h1 { font-size: 24px; margin-bottom: 10px; }
+        p { color: #cccccc; font-size: 16px; line-height: 1.4; }
+        .countdown { font-size: 40px; font-weight: bold; color: red; margin: 20px 0; }
+        
+        /* Pantalla de muerte falsa */
+        #death-screen {
+            display: none;
+            position: fixed;
+            top: 0; left: 0; width: 100vw; height: 100vh;
+            background-color: black;
+            color: #555;
+            padding-top: 45vh;
+            font-family: monospace;
+            font-size: 18px;
+            z-index: 9999;
+        }
+        
+        #meme { display: none; color: white; }
+        #meme img { width: 85%; max-width: 320px; border-radius: 15px; margin-top: 15px; }
+    </style>
+</head>
+<body>
+
+    <div id="ransom-box" class="box">
+        <h1>⚠️ AMENAZA CRÍTICA DETECTADA ⚠️</h1>
+        <p>Este dispositivo Android ha sido bloqueado por el protocolo de seguridad de red debido a actividad sospechosa.</p>
+        <p><strong>Borrando almacenamiento interno para proteger datos bancarios en:</strong></p>
+        <div class="countdown" id="timer">01:00</div>
+        <p style="color: #ff8888;">No intentes apagar el teléfono o perderás el sistema operativo de forma permanente.</p>
+    </div>
+
+    <!-- Pantalla simulando que el celular murió -->
+    <div id="death-screen">
+        <p>Qualcomm CrashDump Mode: Qualitative_Error_0x000281F</p>
+        <p style="font-size: 12px; color: #333;">Rebooting status: FAILED. Partition /system corrupted.</p>
+    </div>
+
+    <div id="meme">
+        <h1 style="color: #00ff00;">¡ERA UNA BROMA, BOBBY! 🤪</h1>
+        <img src="https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExbWp0Z29pZ3M2ZzZtc29pYmd2b3ptY3dwYm10bXN5cmI5OHYwZCZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/CYU3D3bQnlLIk/giphy.gif" alt="Meme">
+        <p style="color: yellow; margin-top: 20px;">Tu teléfono está perfecto. Respira, dale a refrescar o cierra la pestaña. 😂</p>
+    </div>
+
+    <script>
+        const ransomBox = document.getElementById('ransom-box');
+        const deathScreen = document.getElementById('death-screen');
+        const memeDiv = document.getElementById('meme');
+        const timerDisplay = document.getElementById('timer');
+
+        // 1. Bucle molesto de alertas al entrar
+        window.onload = function() {
+            alert("❌ ¡ALERTA DE VIRUS EN ANDROID!");
+            alert("El troyano 'Trojan.Android.Banker' está formateando tu galería.");
+            alert("Error 403: Imposible detener el proceso desde el navegador.");
+            alert("¿Deseas intentar salvar los contactos? (Presiona aceptar para forzar)");
+            
+            if (navigator.vibrate) navigator.vibrate([400, 200, 400]);
+            iniciarContador();
+        };
+
+        // Si tocan la pantalla por desesperación, vibra fuerte
+        document.body.addEventListener('click', () => {
+            if (navigator.vibrate) navigator.vibrate([300, 100, 300]);
+        });
+
+        // 2. Contador regresivo rápido para meter presión (baja de 1 minuto a 0 muy rápido)
+        function iniciarContador() {
+            let segundos = 15; // Lo hacemos de 15 segundos para que sea rápido y dramático
+            let cronometro = setInterval(() => {
+                segundos--;
+                timerDisplay.innerText = "00:" + (segundos < 10 ? "0" : "") + segundos;
+                
+                if (navigator.vibrate && segundos <= 5) {
+                    navigator.vibrate(100); // Empieza a vibrar intermitente al final
+                }
+
+                if (segundos <= 0) {
+                    clearInterval(cronometro);
+                    simularMuerteCelular();
+                }
+            }, 1000);
+        }
+
+        // 3. Simular que el celular se rompió por completo
+        function simularMuerteCelular() {
+            ransomBox.style.display = 'none';
+            deathScreen.style.display = 'block';
+            if (navigator.vibrate) navigator.vibrate(1000); // Vibración larga de "apagado"
+
+            // Espera 6 segundos en la pantalla negra de error y luego revela que es un meme
+            setTimeout(() => {
+                deathScreen.style.display = 'none';
+                document.body.style.backgroundColor = '#111';
+                memeDiv.style.display = 'block';
+            }, 6000);
+        }
+    </script>
+</body>
+</html>
